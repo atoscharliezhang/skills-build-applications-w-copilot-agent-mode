@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from django.http import JsonResponse
 import os
 
 codespace_name = os.environ.get('CODESPACE_NAME')
@@ -27,9 +28,12 @@ else:
 # Create a router for API
 router = DefaultRouter()
 
+def api_root(request):
+    return JsonResponse({"base_url": base_url})
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('api/', api_root),
     path('api/accounts/', include('accounts.urls')),
     path('api/activities/', include('activities.urls')),
     path('api/teams/', include('teams.urls')),
