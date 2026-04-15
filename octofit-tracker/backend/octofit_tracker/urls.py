@@ -29,7 +29,19 @@ else:
 router = DefaultRouter()
 
 def api_root(request):
-    return JsonResponse({"base_url": base_url})
+    # Return the REST API base URL and example endpoints
+    return JsonResponse({
+        "base_url": base_url,
+        "endpoints": {
+            "accounts": f"{base_url}/api/accounts/",
+            "activities": f"{base_url}/api/activities/",
+            "teams": f"{base_url}/api/teams/",
+            "leaderboard": f"{base_url}/api/leaderboard/",
+            "workouts": f"{base_url}/api/workouts/",
+            "auth": f"{base_url}/api/auth/",
+            "auth_registration": f"{base_url}/api/auth/registration/"
+        }
+    })
 
 urlpatterns = [
     path('admin/', admin.site.urls),
